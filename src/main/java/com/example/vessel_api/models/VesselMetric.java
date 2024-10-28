@@ -14,5 +14,4 @@ public class VesselMetric<T> {
     private T value;
     private boolean isValid;
     private ErrorType errorType;
-
 }

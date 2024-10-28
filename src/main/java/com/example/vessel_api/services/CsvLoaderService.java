@@ -9,6 +9,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -27,13 +28,14 @@ import static com.example.vessel_api.utils.Utils.convertStringToLocalDateTime;
 public class CsvLoaderService {
 
     private static final Logger logger = LoggerFactory.getLogger(CsvLoaderService.class);
-    private static final String CSV_PATH = "src/main/resources/data/vessel_data.csv";
+    @Value("${csv.location}")
+    private String csvPath;
 
     @Cacheable("vesselsData")
     public Map<String, Vessel> importCsvData() {
         Map<String, Vessel> vesselsData = new HashMap<>();
 
-        try (CSVReader csvReader = new CSVReader(new FileReader(CSV_PATH))) {
+        try (CSVReader csvReader = new CSVReader(new FileReader(csvPath))) {
             String[] csvLine;
 
             csvReader.readNext();
@@ -49,9 +51,9 @@ public class CsvLoaderService {
                 vesselsData.put(vesselId, vessel);
             }
         } catch (FileNotFoundException e) {
-            logger.error("CSV file not found in location {} ", CSV_PATH);
+            logger.error("CSV file not found in location {} ", csvPath);
             throw new ApplicationException(HttpStatus.NOT_FOUND,
-                    String.format("CSV file not found in location %s ", CSV_PATH));
+                    String.format("CSV file not found in location %s ", csvPath));
         } catch (IOException e) {
             logger.error("Problem when reading the csv file");
             throw new ApplicationException(HttpStatus.BAD_REQUEST, "Problem when reading the csv file");
