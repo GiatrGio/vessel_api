@@ -7,7 +7,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class VesselComplianceComparissonResponse {
+public class VesselComplianceComparisonResponse {
     private String vesselCode;
     private double speedDeviation;
 }

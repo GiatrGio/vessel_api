@@ -3,7 +3,7 @@ package com.example.vessel_api.services;
 import com.example.vessel_api.models.Vessel;
 import com.example.vessel_api.models.VesselDataPoint;
 import com.example.vessel_api.models.response.AllDataResponse;
-import com.example.vessel_api.models.response.VesselComplianceComparissonResponse;
+import com.example.vessel_api.models.response.VesselComplianceComparisonResponse;
 import com.example.vessel_api.models.response.SpeedDataPointResponse;
 import com.example.vessel_api.models.response.VesselSpeedDifferenceResponse;
 import com.example.vessel_api.utils.ErrorType;
@@ -53,17 +53,17 @@ public class VesselService {
         return Utils.sortMapByValueDescending(errorReport);
     }
 
-    public List<VesselComplianceComparissonResponse> compareComplianceBetweenVessels(String vesselCode1, String vesselCode2) {
+    public List<VesselComplianceComparisonResponse> compareComplianceBetweenVessels(String vesselCode1, String vesselCode2) {
         Vessel vessel1 = csvLoaderService.importCsvData().get(vesselCode1);
         Vessel vessel2 = csvLoaderService.importCsvData().get(vesselCode2);
 
-        VesselComplianceComparissonResponse vesselResponse1 = new VesselComplianceComparissonResponse(
+        VesselComplianceComparisonResponse vesselResponse1 = new VesselComplianceComparisonResponse(
                 vesselCode1, vessel1.getVesselSpeedDeviation());
-        VesselComplianceComparissonResponse vesselResponse2 = new VesselComplianceComparissonResponse(
+        VesselComplianceComparisonResponse vesselResponse2 = new VesselComplianceComparisonResponse(
                 vesselCode2, vessel2.getVesselSpeedDeviation());
 
         return Stream.of(vesselResponse1, vesselResponse2)
-                .sorted(Comparator.comparing(VesselComplianceComparissonResponse::getSpeedDeviation))
+                .sorted(Comparator.comparing(VesselComplianceComparisonResponse::getSpeedDeviation))
                 .collect(Collectors.toList());
     }
 

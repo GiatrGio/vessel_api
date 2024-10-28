@@ -5,7 +5,7 @@ import com.example.vessel_api.models.Vessel;
 import com.example.vessel_api.models.VesselDataPoint;
 import com.example.vessel_api.models.VesselMetric;
 import com.example.vessel_api.models.response.AllDataResponse;
-import com.example.vessel_api.models.response.VesselComplianceComparissonResponse;
+import com.example.vessel_api.models.response.VesselComplianceComparisonResponse;
 import com.example.vessel_api.models.response.VesselSpeedDifferenceResponse;
 import com.example.vessel_api.utils.ErrorType;
 import org.junit.jupiter.api.BeforeEach;
@@ -133,7 +133,7 @@ class VesselServiceTest {
         cachedData.put(vesselCode2, vessel2);
         when(csvLoaderService.importCsvData()).thenReturn(cachedData);
 
-        List<VesselComplianceComparissonResponse> result = vesselService.compareComplianceBetweenVessels(vesselCode1, vesselCode2);
+        List<VesselComplianceComparisonResponse> result = vesselService.compareComplianceBetweenVessels(vesselCode1, vesselCode2);
 
         assertEquals(2, result.size());
         assertEquals(vesselCode2, result.get(0).getVesselCode()); // Lowest deviation is the most compliant

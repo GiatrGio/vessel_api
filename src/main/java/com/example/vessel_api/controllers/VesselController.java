@@ -1,7 +1,7 @@
 package com.example.vessel_api.controllers;
 
 import com.example.vessel_api.models.response.AllDataResponse;
-import com.example.vessel_api.models.response.VesselComplianceComparissonResponse;
+import com.example.vessel_api.models.response.VesselComplianceComparisonResponse;
 import com.example.vessel_api.models.response.VesselSpeedDifferenceResponse;
 import com.example.vessel_api.services.VesselService;
 import com.example.vessel_api.utils.ErrorType;
@@ -54,7 +54,7 @@ public class VesselController {
     @GetMapping("/compliance")
     @Operation(summary = "Compares the speed deviation(actual vs proposed speed) of two vessels over all the valid timestamps. " +
             "The vessel with the smaller speed deviation is the more compliant vessel with the system’s suggestions.")
-    public List<VesselComplianceComparissonResponse> getComplianceReportBetweenTwoVessels(
+    public List<VesselComplianceComparisonResponse> getComplianceReportBetweenTwoVessels(
             @RequestParam(defaultValue = "3001")
             @Parameter(description = "The unique code of the first vessel") String vessel1,
 
